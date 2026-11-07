@@ -4,7 +4,7 @@ A fast, lightweight Google Home companion for Ubuntu. Control your Google TV, Ne
 
 Part of a personal series of Ubuntu desktop apps (Linux iCloud Mail, Linux Apple Music Player, Linux iMessage, …).
 
-Current version: **0.1.4** (2026-11-06)
+Current version: **0.1.5** (2026-11-07)
 
 Created by: JGu  
 Supported by Claude
@@ -20,7 +20,8 @@ Supported by Claude
   - D-pad and OK; arrow keys, Enter and Backspace work while the remote is open
   - back, home, play/pause, volume
   - quick launch for YouTube, Netflix, Disney+, Prime Video, Spotify and Max
-  - typing text on the TV
+  - typing text on the TV (optional, "TV keyboard" in the menu)
+  - connects on demand and hangs up ~90 s after the last use, so the TV is left alone; "Keep TV remote connected" makes the connection permanent
   - one-time pairing with the 6-character code shown on the TV
 
 ### Google Home cloud devices (plugs, lights, cameras, …)
@@ -51,7 +52,7 @@ Supported by Claude
 ## Install
 
 ```bash
-sudo apt install ./linux-google-home_0.1.4_all.deb
+sudo apt install ./linux-google-home_0.1.5_all.deb
 ```
 
 Run it from the app grid ("Linux Google Home") or with `linux-google-home`. Use `linux-google-home --hidden` to start in the tray, or `linux-google-home --version` to print the version.
@@ -103,6 +104,12 @@ build-deb.sh           .deb packaging
 - The app runs on X11/XWayland so the panel can be placed under the tray.
 
 ## Version history
+
+### 0.1.5 — 2026-11-07
+- **Fix:** with the app running, Netflix would not start from the TV's own remote. The Android TV remote connection was permanent and registered the app as a keyboard (IME) on the TV, which can interfere with TV apps.
+  - The remote now connects **on demand**: only when you open the remote or send a command, and it hangs up about 90 s after the last use. At startup it only checks pairing and disconnects.
+  - The TV keyboard (IME) is **off by default**. Turn it on in the menu ("TV keyboard (text input)") if you want to type on the TV from the laptop. The text field in the remote is shown only then.
+  - New menu option **"Keep TV remote connected"** restores the old permanent connection, which shows the current TV app live.
 
 ### 0.1.4 — 2026-11-06
 - Credits "Created by: JGu" and "Supported by Claude" in the window footer (below the version), in the tile panel and in the About dialog.
