@@ -1,0 +1,7 @@
+APP_ID = "io.github.jaro.LinuxGoogleHome"
+APP_NAME = "Linux Google Home"
+SLUG = "linux-google-home"
+VERSION = "0.1.7"
+BUILD_DATE = "2026-11-12"
+CREATED_BY = "Created by: JGu"
+SUPPORTED_BY = "Supported by Claude"

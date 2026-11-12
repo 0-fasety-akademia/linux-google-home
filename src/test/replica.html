@@ -1,0 +1,16 @@
+<html><head><meta charset="utf-8"></head><body><h1>Urządzenia</h1><div class="spaces-container">
+<div class="space"><h2>Salon</h2><div class="tile-container"><div class="tile-column">
+<ghw-device-tile><div class="device-tile"><ghw-tile-generic><button><mat-icon>videocam</mat-icon><p class="title">KameraC210PIŁS</p></button></ghw-tile-generic></div></ghw-device-tile>
+<ghw-device-tile><div class="device-tile"><ghw-tile-media><button class="SPEAKER inactive media-tile readonly"><p class="title"> Salon </p></button></ghw-tile-media></div></ghw-device-tile>
+</div></div></div>
+<div class="space"><h2>Sypialnia</h2><div class="tile-container"><div class="tile-column" id="col"></div></div></div>
+</div>
+<script>
+const names=[["HubH100TAPO","SWITCH"],["Sypialnia _sciana_Tapo S210","SWITCH"],["Lampka_sypialnia_Meross","LIGHT"],["Sypialnia _sufit_Tapo S210","SWITCH"]];
+// render later like Angular does
+setTimeout(()=>{ for(const [n,t] of names){ const d=document.createElement('ghw-device-tile');
+ d.innerHTML=`<div class="device-tile"><ghw-tile-on-off><div class="on-off-tile-container"><button class="mat-mdc-tooltip-trigger ${t} inactive on-off-tile" aria-disabled="false" title="Włącz"><mat-icon>switch</mat-icon><div class="content"><p class="title">${n}</p><p class="subtitle"><span>Wyłączono</span></p></div></button></div></ghw-tile-on-off></div>`;
+ document.getElementById('col').appendChild(d);
+ const b=d.querySelector("button"); b.onclick=(e)=>{ if(!e.isTrusted){document.title="UNTRUSTED";return;} setTimeout(()=>{ const on=b.classList.contains('inactive'); b.classList.toggle('inactive',!on); b.classList.toggle('active',on); b.title=on?'Wyłącz':'Włącz'; d.querySelector('.subtitle span').textContent=on?'Włączono':'Wyłączono';},300)};
+}},1500);
+</script></body></html>

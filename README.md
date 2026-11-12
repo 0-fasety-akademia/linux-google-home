@@ -4,7 +4,7 @@ A fast, lightweight Google Home companion for Ubuntu. Control your Google TV, Ne
 
 Part of a personal series of Ubuntu desktop apps (Linux iCloud Mail, Linux Apple Music Player, Linux iMessage, …).
 
-Current version: **0.1.6** (2026-11-07)
+Current version: **0.1.7** (2026-11-12)
 
 Created by: JGu  
 Supported by Claude
@@ -77,41 +77,49 @@ Supported by Claude
 
 ## Install
 
+Download the newest `linux-google-home_<version>_all.deb` from the [Releases page](https://github.com/jgu-linux-apps/linux-google-home/releases/latest) and install it:
+
 ```
-sudo apt install ./linux-google-home\_0.1.6\_all.deb
+sudo apt install ./linux-google-home_<version>_all.deb
 ```
 
 Run it from the app grid ("Linux Google Home") or with `linux-google-home`. Use `linux-google-home --hidden` to start in the tray, or `linux-google-home --version` to print the version.
 
 ## Build from source
 
+The source code is in the `src/` folder of this repository; the `.deb` packages are not kept in git but attached to [GitHub Releases](https://github.com/jgu-linux-apps/linux-google-home/releases). Pushing a tag `vX.Y.Z` that matches `VERSION` in `src/src/lgh/__init__.py` makes GitHub Actions (`.github/workflows/release.yml`) build the package and publish the release.
+
+Run inside `src/`:
+
 ```
-./build-deb.sh        \# -\> build/linux-google-home\_\<version\>\_all.deb
+./build-deb.sh        # -> build/linux-google-home_<version>_all.deb
 ```
 
 Run without installing:
 
 ```
-python3 src/main.py  
-python3 test/demo.py   \# UI with fake devices, no network needed
+python3 src/main.py
+python3 test/demo.py   # UI with fake devices, no network needed
 ```
 
 ## Project layout
 
+Paths relative to `src/`:
+
 ```
-src/main.py            entry point (sets vendor path, GDK\_BACKEND=x11)  
-src/lgh/\_\_init\_\_.py    app id, name, VERSION, BUILD\_DATE  
-src/lgh/app.py         Gtk.Application: lifecycle, config, notifications, autostart  
-src/lgh/backend.py     Cast (pychromecast) + Android TV Remote (androidtvremote2)  
-src/lgh/ui.py          main window, device cards, TV remote popover, web tab, pairing  
-src/lgh/panel.py       tile panel under the tray  
-src/lgh/tray.py        Ayatana AppIndicator tray icon and menu  
-src/lgh/webtiles.py    hidden home.google.com page: tile scraping and toggling  
-src/lgh/theme.py       light/dark detection, theme-aware icons  
-src/lgh/i18n.py        PL/EN strings  
-src/icons/             light.svg / dark.svg app icons  
-src/vendor/            bundled pure-Python libs (pychromecast, casttube, androidtvremote2, protobuf)  
-test/                  demo with fake devices, web tile test against a replica page  
+src/main.py            entry point (sets vendor path, GDK_BACKEND=x11)
+src/lgh/__init__.py    app id, name, VERSION, BUILD_DATE
+src/lgh/app.py         Gtk.Application: lifecycle, config, notifications, autostart
+src/lgh/backend.py     Cast (pychromecast) + Android TV Remote (androidtvremote2)
+src/lgh/ui.py          main window, device cards, TV remote popover, web tab, pairing
+src/lgh/panel.py       tile panel under the tray
+src/lgh/tray.py        Ayatana AppIndicator tray icon and menu
+src/lgh/webtiles.py    hidden home.google.com page: tile scraping and toggling
+src/lgh/theme.py       light/dark detection, theme-aware icons
+src/lgh/i18n.py        PL/EN strings
+src/icons/             light.svg / dark.svg app icons
+src/vendor/            bundled pure-Python libs (pychromecast, casttube, androidtvremote2, protobuf)
+test/                  demo with fake devices, web tile test against a replica page
 build-deb.sh           .deb packaging
 ```
 
@@ -138,6 +146,10 @@ build-deb.sh           .deb packaging
 - The app runs on X11/XWayland so the panel can be placed under the tray.
 
 ## Version history
+
+### 0.1.7 — 2026-11-12
+
+- No changes in the app. The repository now keeps the source code in `src/`, and the `.deb` is published on the GitHub Releases page (built by GitHub Actions for every version tag). README: installation from Releases, cleaned-up code blocks.
 
 ### 0.1.6 — 2026-11-07
 
@@ -177,7 +189,7 @@ build-deb.sh           .deb packaging
 
 - Icons per device type: light, plug/switch, camera, speaker, TV, display, group.
 
-- The app runs on X11/XWayland (`GDK\_BACKEND=x11`) so the panel can be positioned.
+- The app runs on X11/XWayland (`GDK_BACKEND=x11`) so the panel can be positioned.
 
 ### 0.1.1 — 2026-11-05
 
