@@ -33,9 +33,7 @@ StartupWMClass=io.github.jaro.LinuxGoogleHome
 X-GNOME-UsesNotifications=true
 S
 cp README.md $R/usr/share/doc/$PKG/README.md
-cat > $R/usr/share/doc/$PKG/copyright <<'S'
-Linux Google Home - MIT. Bundled: pychromecast (MIT), casttube (MIT), androidtvremote2 (Apache-2.0), protobuf (BSD-3-Clause).
-S
+cp LICENSE $R/usr/share/doc/$PKG/copyright
 SIZE=$(du -sk $R/usr | cut -f1)
 cat > $R/DEBIAN/control <<S
 Package: $PKG

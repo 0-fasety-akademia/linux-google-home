@@ -222,7 +222,8 @@ class App(Gtk.Application):
         if os.path.exists(p):
             from gi.repository import GdkPixbuf
             dlg.set_logo(GdkPixbuf.Pixbuf.new_from_file_at_size(p, 96, 96))
-        dlg.set_license_type(Gtk.License.MIT_X11)
+        dlg.set_license_type(Gtk.License.CUSTOM)
+        dlg.set_license("Freeware License (No Modifications).\nFree to use and to share unmodified; modification is not permitted.\nSee /usr/share/doc/linux-google-home/copyright.")
         dlg.run()
         dlg.destroy()
 
