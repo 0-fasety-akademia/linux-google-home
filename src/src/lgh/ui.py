@@ -476,6 +476,18 @@ class MainWindow(Gtk.ApplicationWindow):
         ime.connect("toggled", lambda c: self.app.set_remote_option("remote_ime", c.get_active()))
         box.pack_start(ime, False, False, 0)
         box.pack_start(Gtk.Separator(), False, False, 4)
+        tl = Gtk.Label(label=_("theme"), xalign=0)
+        tl.get_style_context().add_class("lgh-dim")
+        box.pack_start(tl, False, False, 0)
+        cur = self.app.config.get("theme", "system")
+        first = None
+        for key in ("system", "aurora"):
+            rb = Gtk.RadioButton.new_with_label_from_widget(first, _("theme_" + key))
+            first = first or rb
+            rb.set_active(cur == key)
+            rb.connect("toggled", lambda b, k=key: b.get_active() and self.app.set_theme(k))
+            box.pack_start(rb, False, False, 0)
+        box.pack_start(Gtk.Separator(), False, False, 4)
         auto = Gtk.CheckButton(label=_("autostart"))
         auto.set_active(self.app.autostart_enabled())
         auto.connect("toggled", lambda c: self.app.set_autostart(c.get_active()))

@@ -15,8 +15,24 @@ from . import APP_ID, APP_NAME, BUILD_DATE, CREATED_BY, SLUG, SUPPORTED_BY, VERS
 from .backend import Backend  # noqa: E402
 from .i18n import _  # noqa: E402
 from .theme import ThemeWatcher, icon_path  # noqa: E402
+from .aurora3 import AuroraTheme3  # noqa: E402
 
 REFRESH_SECONDS = 120
+
+
+def AURORA_EXTRA(p, dark):
+    """Karty urządzeń i stopka w kolorach Aurory."""
+    a, a2 = p["accent"], p["accent2"]
+    return f"""
+.lgh-card {{ background-color: {'alpha(#FFFFFF, 0.05)' if dark else 'alpha(#FFFFFF, 0.80)'};
+    border: 1px solid {p['border']}; border-radius: 18px; transition: all 150ms ease-out; }}
+.lgh-card:hover {{ border-color: alpha({a2 if dark else a}, 0.55);
+    box-shadow: 0 0 18px alpha({a2 if dark else a}, {0.25 if dark else 0.18}); }}
+.lgh-card.active {{ border-color: alpha({a2}, 0.85); box-shadow: 0 0 16px alpha({a2}, 0.30); }}
+.lgh-pill {{ background-color: alpha({a}, 0.14); }}
+.lgh-ok {{ background-image: linear-gradient(to right, {a}, {a2}); color: #FFFFFF; border-color: {a}; }}
+.lgh-footer {{ background-color: alpha({p['header']}, 0.6); }}
+"""
 
 
 class App(Gtk.Application):
@@ -102,6 +118,7 @@ class App(Gtk.Application):
     def do_startup(self):
         Gtk.Application.do_startup(self)
         self.hold()  # keep running in the tray when the window is closed
+        self.look = AuroraTheme3(extra=AURORA_EXTRA)
         self.theme = ThemeWatcher(self._theme_changed)
         self.backend = Backend(
             self.config_dir,
@@ -195,7 +212,13 @@ class App(Gtk.Application):
         n.set_default_action("app.show")
         self.send_notification(tag, n)
 
+    def set_theme(self, name: str):
+        self.config["theme"] = name
+        self.save_config()
+        self.look.apply(name, self.theme.dark)
+
     def _theme_changed(self, dark: bool):
+        self.look.apply(self.config.get("theme", "system"), dark)
         self._apply_window_icon()
         if self.tray:
             self.tray.set_dark(dark)

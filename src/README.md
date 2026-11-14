@@ -4,7 +4,7 @@ A fast, lightweight Google Home companion for Ubuntu. Control your Google TV, Ne
 
 Part of a personal series of Ubuntu desktop apps (Linux iCloud Mail, Linux Apple Music Player, Linux iMessage, …).
 
-Current version: **0.1.8** (2026-11-12)
+Current version: **0.1.9** (2026-11-14)
 
 Created by: JGu  
 Supported by Claude
@@ -58,6 +58,7 @@ Supported by Claude
 ### Desktop integration
 
 - Light/dark theme follows the system. The app icon in the dock, app grid and tray switches with it.
+- Two themes in the menu: **System** (your GTK theme) and **Aurora**, the shared theme of the JGu Linux Apps series (violet-to-cyan gradients, glow on hover), each in a light and a dark variant that follows the system.
 
 - UI in Polish or English, following the system language.
 
@@ -116,6 +117,7 @@ src/lgh/panel.py       tile panel under the tray
 src/lgh/tray.py        Ayatana AppIndicator tray icon and menu
 src/lgh/webtiles.py    hidden home.google.com page: tile scraping and toggling
 src/lgh/theme.py       light/dark detection, theme-aware icons
+src/lgh/aurora3.py     Aurora theme (GTK3 port of the series theme)
 src/lgh/i18n.py        PL/EN strings
 src/icons/             light.svg / dark.svg app icons
 src/vendor/            bundled pure-Python libs (pychromecast, casttube, androidtvremote2, protobuf)
@@ -146,6 +148,10 @@ build-deb.sh           .deb packaging
 - The app runs on X11/XWayland so the panel can be placed under the tray.
 
 ## Version history
+
+### 0.1.9 — 2026-11-14
+
+- New **Aurora** theme (menu → Theme), the same look as the other apps in the series. Light and dark follow the system.
 
 ### 0.1.8 — 2026-11-12
 

@@ -4,6 +4,9 @@ import os
 
 _STRINGS = {
     "devices": ("Urządzenia", "Devices"),
+    "theme": ("Motyw", "Theme"),
+    "theme_system": ("Systemowy (jasny / ciemny)", "System (light / dark)"),
+    "theme_aurora": ("Aurora (jasny / ciemny)", "Aurora (light / dark)"),
     "web": ("Google Home (web)", "Google Home (web)"),
     "searching": ("Szukam urządzeń w sieci…", "Searching for devices on your network…"),
     "searching_hint": (
