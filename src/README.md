@@ -4,7 +4,7 @@ A fast, lightweight Google Home companion for Ubuntu. Control your Google TV, Ne
 
 Part of a personal series of Ubuntu desktop apps (Linux iCloud Mail, Linux Apple Music Player, Linux iMessage, …).
 
-Current version: **0.1.9** (2026-11-14)
+Current version: **0.1.10** (2026-11-14)
 
 Created by: JGu  
 Supported by Claude
@@ -148,6 +148,10 @@ build-deb.sh           .deb packaging
 - The app runs on X11/XWayland so the panel can be placed under the tray.
 
 ## Version history
+
+### 0.1.10 — 2026-11-14
+
+- Fix: **Show window** in the tray menu now brings the window to the front. GNOME kept it behind other windows (only "demanding attention"), because a menu click arriving over D-Bus carries no timestamp.
 
 ### 0.1.9 — 2026-11-14
 

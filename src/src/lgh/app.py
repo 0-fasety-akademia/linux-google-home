@@ -9,7 +9,7 @@ import sys
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, GLib, Gtk  # noqa: E402
+from gi.repository import Gdk, Gio, GLib, Gtk  # noqa: E402
 
 from . import APP_ID, APP_NAME, BUILD_DATE, CREATED_BY, SLUG, SUPPORTED_BY, VERSION  # noqa: E402
 from .backend import Backend  # noqa: E402
@@ -152,8 +152,21 @@ class App(Gtk.Application):
         self.show_window()
 
     def show_window(self):
+        # The tray menu comes over D-Bus, so there is no input event and no timestamp. present()
+        # without one counts as focus stealing for GNOME: the window stays behind and only
+        # "demands attention". The current X server time is accepted as a real user action.
         self.window.show()
-        self.window.present()
+        ts = Gtk.get_current_event_time()
+        if not ts:
+            try:
+                gi.require_version("GdkX11", "3.0")
+                from gi.repository import GdkX11
+                gw = self.window.get_window()
+                if isinstance(gw, GdkX11.X11Window):
+                    ts = GdkX11.x11_get_server_time(gw)
+            except (ImportError, ValueError):
+                pass
+        self.window.present_with_time(ts or Gdk.CURRENT_TIME)
 
     def quit_app(self):
         try:
